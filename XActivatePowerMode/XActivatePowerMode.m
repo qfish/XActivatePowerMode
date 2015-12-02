@@ -70,6 +70,10 @@ static XActivatePowerMode * __sharedPlugin = nil;
     [self loadConfig];
     
     [self setupMenu];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self setActivatePowerModeEnabled:self.enabled];
+    });
 }
 
 - (void)dealloc
@@ -83,7 +87,7 @@ static XActivatePowerMode * __sharedPlugin = nil;
 {
     if ( ![[NSApp keyWindow].firstResponder isKindOfClass:NSClassFromString(@"DVTSourceTextView")] )
         return;
-    
+asdas
     if ( [n.object isKindOfClass:NSTextView.class] )
     {
         NSTextView * textView = (NSTextView *)n.object;
