@@ -36,7 +36,7 @@ An Xcode plug-in makes [activate-power-mode](https://github.com/JoelBesada/activ
 
     <img src="http://7d9o0x.com1.z0.glb.clouddn.com/XActivatePowerModepreview.gif" width="500"/>
 
-* Bloody (Thanks to @gavinkowe)
+* Bloody (Thanks to @gavinkwoe)
 
     <img src="http://7d9o0x.com1.z0.glb.clouddn.com/XActivatePowerMode/effect-bloody.gif" width="500"/>
 
