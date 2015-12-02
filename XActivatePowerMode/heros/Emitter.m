@@ -17,11 +17,24 @@
 @property (atomic, assign) BOOL isEmitting;
 @property (nonatomic, assign) float birthRate;
 @property (nonatomic, strong) NSTimer * timer;
-@property (nonatomic, strong) NSString * effectFile;
 @property (nonatomic, strong) UIEffectDesignerView * effectView;
 @end
 
 @implementation Emitter
+
+- (id)init
+{
+	self = [super init];
+	if ( self )
+	{
+	}
+	return self;
+}
+
+- (void)dealloc
+{
+	self.effectFile = nil;
+}
 
 - (void)emitAtPosition:(NSPoint)position onView:(NSView *)aView
 {
@@ -99,12 +112,35 @@
     {
         // Build your own effect with: http://www.touch-code-magazine.com/uieffectdesigner/
         _effectView = [UIEffectDesignerView effectWithFile:[[XActivatePowerMode sharedPlugin].bundle
-                                                            pathForResource:@"default"
-                                                            ofType:@"ped"]];
+                                                            pathForResource:[self.effectFile stringByDeletingPathExtension]
+                                                            ofType:[self.effectFile pathExtension]]];
         self.birthRate = _effectView.emitter.birthRate;
     }
     
     return _effectView;
+}
+
+- (void)changeEffectFile:(NSString *)file
+{
+	if ( [self.effectFile isEqualToString:file] )
+		return;
+	
+	if ( _effectView )
+	{
+		NSView * containerView = _effectView.superview;
+
+		[_effectView removeFromSuperview];
+		
+		_effectView = [UIEffectDesignerView effectWithFile:[[XActivatePowerMode sharedPlugin].bundle
+															pathForResource:[file stringByDeletingPathExtension]
+															ofType:[file pathExtension]]];
+		
+		[containerView addSubview:_effectView];
+
+		self.birthRate = _effectView.emitter.birthRate;
+	}
+
+	self.effectFile = file;
 }
 
 @end
