@@ -87,7 +87,7 @@ static XActivatePowerMode * __sharedPlugin = nil;
 {
     if ( ![[NSApp keyWindow].firstResponder isKindOfClass:NSClassFromString(@"DVTSourceTextView")] )
         return;
-asdas
+
     if ( [n.object isKindOfClass:NSTextView.class] )
     {
         NSTextView * textView = (NSTextView *)n.object;
