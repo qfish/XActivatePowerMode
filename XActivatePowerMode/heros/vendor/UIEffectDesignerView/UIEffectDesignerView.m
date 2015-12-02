@@ -45,7 +45,7 @@ static float kFileFormatVersionExpected = 0.1;
 
 - (void)updatePosition:(CGPoint)position 
 {
-    self.emitter.emitterPosition = CGPointMake(position.x, position.y - self.frame.size.height / 3);
+    self.emitter.emitterPosition = CGPointMake(position.x + 3, position.y - self.frame.size.height / 3);
 }
 
 //custom initializer

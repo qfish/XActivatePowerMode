@@ -11,21 +11,29 @@
 #import "Rocker.h"
 
 NSString * const kXActivatePowerModeEnabled = @"qfi.sh.xcodeplugin.activatepowermode.enabled";
+NSString * const kXActivatePowerModeShouldShake = @"qfi.sh.xcodeplugin.activatepowermode.shouldshake";
 
 static XActivatePowerMode * __sharedPlugin = nil;
 
 @interface XActivatePowerMode()
 
-@property (nonatomic, weak, readwrite) NSMenuItem * menuItem;
+@property (nonatomic, weak, readwrite) NSMenuItem * enabledMenuItem;
+@property (nonatomic, weak, readwrite) NSMenuItem * shakedMenuItem;
 
 @property (nonatomic, strong, readwrite) NSBundle * bundle;
 
 @property (nonatomic, strong, readwrite) Rocker * rocker;
 @property (nonatomic, strong, readwrite) Emitter * emitter;
 
+@property (nonatomic, assign) BOOL enabled;
+@property (nonatomic, assign) BOOL shouldShake;
+
 @end
 
 @implementation XActivatePowerMode
+
+@synthesize enabled = _enabled;
+@synthesize shouldShake = _shouldShake;
 
 + (void)pluginDidLoad:(NSBundle *)plugin
 {
@@ -59,13 +67,9 @@ static XActivatePowerMode * __sharedPlugin = nil;
     //removeObserver
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NSApplicationDidFinishLaunchingNotification object:nil];
     
-    // Create menu items, initialize UI, etc.
-    // Sample Menu Item:
-    [self setupMenu];
+    [self loadConfig];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self setActivatePowerModeEnabled:[self isActivatePowerModeEnabled]];
-    });
+    [self setupMenu];
 }
 
 - (void)dealloc
@@ -92,17 +96,18 @@ static XActivatePowerMode * __sharedPlugin = nil;
                                                                        rectCount:&count];
         
         [self.emitter emitAtPosition:targetRect.origin onView:textView];
-        [self.rocker roll:textView];
+        
+        if ( self.shouldShake )
+        {
+            [self.rocker roll:textView];
+        }
     }
 }
 
-#pragma mark - Methods
+#pragma mark -
 
 - (void)setActivatePowerModeEnabled:(BOOL)enabled
 {
-    [self updateUserDefaultsWithEnabled:enabled];
-    [self updateMenuTitles];
-    
     if ( enabled )
     {
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -115,28 +120,75 @@ static XActivatePowerMode * __sharedPlugin = nil;
         [[NSNotificationCenter defaultCenter] removeObserver:self
                                                         name:NSTextDidChangeNotification
                                                       object:nil];
+        self.shouldShake = NO;
     }
 }
 
-#pragma mark - UserDefaults
+#pragma mark - Config (TODO: move to config)
 
-- (BOOL)isActivatePowerModeEnabled
+- (void)setEnabled:(BOOL)enabled
 {
-    NSNumber * enabled = [[NSUserDefaults standardUserDefaults] objectForKey:kXActivatePowerModeEnabled];
+    if ( _enabled == enabled )
+        return;
     
-    if ( enabled == nil )
-    {
-        [self updateUserDefaultsWithEnabled:YES];
-        return YES;
-    }
+    _enabled = enabled;
     
-    return [enabled boolValue];
+    [self updateUserDefaultsWithEnabled:enabled];
+    [self updateMenuTitles];
+    [self setActivatePowerModeEnabled:enabled];
+}
+
+- (void)setShouldShake:(BOOL)shouldShake
+{
+    if ( !self.enabled )
+        return;
+    
+    if ( _shouldShake == shouldShake )
+        return;
+    
+    _shouldShake = shouldShake;
+    
+    [self updateUserDefaultsWithShaked:shouldShake];
+    [self updateMenuTitles];
 }
 
 - (void)updateUserDefaultsWithEnabled:(BOOL)enabled
 {
     [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:kXActivatePowerModeEnabled];
     [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)updateUserDefaultsWithShaked:(BOOL)shaked
+{
+    [[NSUserDefaults standardUserDefaults] setBool:shaked forKey:kXActivatePowerModeShouldShake];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)loadConfig
+{
+    NSNumber * value = [[NSUserDefaults standardUserDefaults] objectForKey:kXActivatePowerModeEnabled];
+    
+    if ( value == nil )
+    {
+        [self updateUserDefaultsWithEnabled:YES];
+        _enabled = YES;
+    }
+    else
+    {
+        _enabled = [value boolValue];
+    }
+    
+    value = [[NSUserDefaults standardUserDefaults] objectForKey:kXActivatePowerModeShouldShake];
+    
+    if ( value == nil )
+    {
+        [self updateUserDefaultsWithEnabled:NO];
+        _shouldShake = NO;
+    }
+    else
+    {
+        _shouldShake = [value boolValue];
+    }
 }
 
 #pragma mark - Menus
@@ -150,12 +202,25 @@ static XActivatePowerMode * __sharedPlugin = nil;
         [[mainItem submenu] addItem:[NSMenuItem separatorItem]];
 
         NSMenuItem * menuItem = [[NSMenuItem alloc] init];
-        menuItem.action = @selector(toggleEnabled:);
-        menuItem.target = self;
         menuItem.title = @"Activate Power Mode";
         [[mainItem submenu] addItem:menuItem];
+
+        NSMenu * menu = [[NSMenu alloc] init];
+        menuItem.submenu = menu;
+
+        NSMenuItem * enabledMenuItem = [[NSMenuItem alloc] init];
+        enabledMenuItem.title = @"Enable";
+        enabledMenuItem.action = @selector(toggleEnabled:);
+        enabledMenuItem.target = self;
+        [menu addItem:enabledMenuItem];
+        self.enabledMenuItem = enabledMenuItem;
         
-        self.menuItem = menuItem;
+        NSMenuItem * shakedMenuItem = [[NSMenuItem alloc] init];
+        shakedMenuItem.title = @"Shake😂?";
+        shakedMenuItem.action = @selector(toggleShaked:);
+        shakedMenuItem.target = self;
+        [menu addItem:shakedMenuItem];
+        self.shakedMenuItem = shakedMenuItem;
         
         [self updateMenuTitles];
     }
@@ -163,12 +228,29 @@ static XActivatePowerMode * __sharedPlugin = nil;
 
 - (void)toggleEnabled:(id)sender
 {
-    [self setActivatePowerModeEnabled:![self isActivatePowerModeEnabled]];
+    self.enabled = !self.enabled;
+    [self setActivatePowerModeEnabled:self.enabled];
+}
+
+- (void)toggleShaked:(id)sender
+{
+    self.shouldShake = !self.shouldShake;
 }
 
 - (void)updateMenuTitles
 {
-    self.menuItem.state = [self isActivatePowerModeEnabled];
+    self.enabledMenuItem.state = self.enabled;
+
+    if ( !self.enabled )
+    {
+        self.shakedMenuItem.target = nil;
+        self.shakedMenuItem.state = NSOffState;
+    }
+    else
+    {
+        self.shakedMenuItem.target = self;
+        self.shakedMenuItem.state = self.shouldShake;
+    }
 }
 
 @end
