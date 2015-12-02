@@ -29,7 +29,8 @@
     
     NSView * view = aView.superview;
 
-    if ( !self.isEmitting ) {
+    if ( !self.isEmitting )
+    {
         [self startAtPosition:position onView:view];
     }
     

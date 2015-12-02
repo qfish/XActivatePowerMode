@@ -77,12 +77,12 @@ static XActivatePowerMode * __sharedPlugin = nil;
 
 - (void)textDidChange:(NSNotification *)n
 {
-    id firstResponder = [[NSApp keyWindow] firstResponder];
-    if (![firstResponder isKindOfClass:NSClassFromString(@"DVTSourceTextView")]) return;
-
+    if ( ![[NSApp keyWindow].firstResponder isKindOfClass:NSClassFromString(@"DVTSourceTextView")] )
+        return;
+    
     if ( [n.object isKindOfClass:NSTextView.class] )
     {
-        NSTextView *textView = (NSTextView *)n.object;
+        NSTextView * textView = (NSTextView *)n.object;
         
         NSInteger editingLocation = [[[textView selectedRanges] objectAtIndex:0] rangeValue].location;
         NSUInteger count = 0;
