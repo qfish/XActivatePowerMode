@@ -6,6 +6,8 @@ An Xcode plug-in makes [activate-power-mode](https://github.com/JoelBesada/activ
 
 <img src="http://7d9o0x.com1.z0.glb.clouddn.com/XActivatePowerMode/behappy.png" width="300"/>
 
+**NOTE THAT THIS VERSION IS VERY BUGGY RIGHT NOW**
+
 <!--
 <b style="color:#00C0FF; font-size:64px;">F</b>
 <b style="color:#0DB3FF; font-size:64px;">O</b>
@@ -28,27 +30,45 @@ An Xcode plug-in makes [activate-power-mode](https://github.com/JoelBesada/activ
 <b style="color:#A000FF; font-size:64px;">!</b>
 -->
 
+## Effects
 
-**NOTE THAT THIS VERSION IS VERY BUGGY RIGHT NOW**
+* Default
 
-![XActivatePowerMode](http://7d9o0x.com1.z0.glb.clouddn.com/XActivatePowerModepreview.gif)
+    <img src="http://7d9o0x.com1.z0.glb.clouddn.com/XActivatePowerModepreview.gif" width="500"/>
+
+* Bloody (Thanks to @gavinkowe)
+
+    <img src="http://7d9o0x.com1.z0.glb.clouddn.com/XActivatePowerMode/effect-bloody.gif" width="500"/>
+
+* [**🎉 Find More**](https://github.com/qfish/XActivatePowerMode#make-your-own-particle-effect)
 
 ## How to install and use?
 
-The best way of installing is by [Alcatraz](http://alcatraz.io). Install Alcatraz followed by the instruction (search `XActivatePowerMode`), restart your Xcode and it works by default.
+### Terminal
 
-If you do not like the Alcatraz way, you can also clone the repo. Then build the `XActivatePowerMode` target in the Xcode project and the plug-in will automatically be installed in `~/Library/Application Support/Developer/Shared/Xcode/Plug-ins`. Relaunch Xcode and it will work too.
+```sh
+git clone https://github.com/qfish/XActivatePowerMode.git && cd XActivatePowerMode && xcodebuild clean > /dev/null && xcodebuild > /dev/null
+```
+
+### [Alcatraz](http://alcatraz.io)
+
+Install Alcatraz followed by the instruction (search `XActivatePowerMode`), restart your Xcode and it works by default.
+
+### Manually
+Clone the repo, then build (<kbd>cmd + b</kbd>) the `XActivatePowerMode` target in the Xcode project and the plug-in will automatically be installed in `~/Library/Application Support/Developer/Shared/Xcode/Plug-ins`. Relaunch Xcode and it will work too.
 
 ## Deactivate Tips
 
 The switch is under the menu <kbd>Edit</kbd> -> <kbd>Activate Power Mode</kbd>, just click that or **uninstall this plug-in** :] .
 
-<img src="http://7d9o0x.com1.z0.glb.clouddn.com/XActivatePowerMode/deactivate-tips.png" width="300"/>
+<img src="http://7d9o0x.com1.z0.glb.clouddn.com/XActivatePowerMode/tips.png" width="500"/>
 
 
 ## Make your own particle effect?
 
-The default effect was builded with [UIEffectDesigner](http://www.touch-code-magazine.com/uieffectdesigner/), make your own by replacing the `default.ped` 
+The default effect was builded with [UIEffectDesigner](http://www.touch-code-magazine.com/uieffectdesigner/). Make your own `ped` effect file, then add it to the project. The name of it will show in the <kbd>effects menu</kbd> list.
+
+Its appreciated that you **pull** a **request** with your **EFFECT**.
 
 ## TODO
 
