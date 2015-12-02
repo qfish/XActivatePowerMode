@@ -12,6 +12,7 @@
 
 NSString * const kXActivatePowerModeEnabled = @"qfi.sh.xcodeplugin.activatepowermode.enabled";
 NSString * const kXActivatePowerModeShouldShake = @"qfi.sh.xcodeplugin.activatepowermode.shouldshake";
+NSString * const kXActivatePowerModeEffectFile = @"qfi.sh.xcodeplugin.activatepowermode.effectFile";
 
 static XActivatePowerMode * __sharedPlugin = nil;
 
@@ -19,6 +20,7 @@ static XActivatePowerMode * __sharedPlugin = nil;
 
 @property (nonatomic, weak, readwrite) NSMenuItem * enabledMenuItem;
 @property (nonatomic, weak, readwrite) NSMenuItem * shakedMenuItem;
+@property (nonatomic, weak, readwrite) NSMenuItem * effectsMenuItem;
 
 @property (nonatomic, strong, readwrite) NSBundle * bundle;
 
@@ -49,15 +51,23 @@ static XActivatePowerMode * __sharedPlugin = nil;
 {
     if (self = [super init])
     {
+		NSString * effectFile = [[NSUserDefaults standardUserDefaults] objectForKey:kXActivatePowerModeEffectFile];
+		
+		if ( nil == effectFile )
+		{
+			effectFile = @"blood.ped";
+		}
+
         self.bundle = plugin;
         self.emitter = [Emitter new];
+		self.emitter.effectFile = effectFile;
+		
         self.rocker = [Rocker new];
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(didApplicationFinishLaunchingNotification:)
                                                      name:NSApplicationDidFinishLaunchingNotification
                                                    object:nil];
-        
     }
     return self;
 }
@@ -225,8 +235,34 @@ static XActivatePowerMode * __sharedPlugin = nil;
         shakedMenuItem.target = self;
         [menu addItem:shakedMenuItem];
         self.shakedMenuItem = shakedMenuItem;
-        
+
+		NSMenuItem * effectsMenuItem = [[NSMenuItem alloc] init];
+		effectsMenuItem.title = @"Effects";
+		[menu addItem:effectsMenuItem];
+		self.effectsMenuItem = effectsMenuItem;
+		self.effectsMenuItem.submenu = [[NSMenu alloc] init];
+		
+		NSArray * effectFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.bundle.resourcePath error:NULL];
+		
+		for ( NSString * file in effectFiles )
+		{
+			if ( [file hasSuffix:@".ped"] )
+			{
+				NSString * effectFile = [self.bundle.resourcePath stringByAppendingFormat:@"/%@", file];
+				
+				if ( [[NSFileManager defaultManager] fileExistsAtPath:effectFile] )
+				{
+					NSMenuItem * effectSubMenuItem = [[NSMenuItem alloc] init];
+					effectSubMenuItem.title = file;
+					effectSubMenuItem.action = @selector(toggleEffect:);
+					effectSubMenuItem.target = self;
+					[[effectsMenuItem submenu] addItem:effectSubMenuItem];
+				}
+			}
+		}
+		
         [self updateMenuTitles];
+		[self updateMenuEffectSelection];
     }
 }
 
@@ -239,6 +275,33 @@ static XActivatePowerMode * __sharedPlugin = nil;
 - (void)toggleShaked:(id)sender
 {
     self.shouldShake = !self.shouldShake;
+}
+
+- (void)toggleEffect:(id)sender
+{
+	NSString * file = ((NSMenuItem *)sender).title;
+	
+	[self.emitter changeEffectFile:file];
+	
+	[self updateMenuEffectSelection];
+	
+	[[NSUserDefaults standardUserDefaults] setObject:file forKey:kXActivatePowerModeEffectFile];
+	[[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)updateMenuEffectSelection
+{
+	for ( NSMenuItem * item in self.effectsMenuItem.submenu.itemArray )
+	{
+		if ( [item.title isEqualToString:self.emitter.effectFile] )
+		{
+			item.state = NSOnState;
+		}
+		else
+		{
+			item.state = NSOffState;
+		}
+	}
 }
 
 - (void)updateMenuTitles

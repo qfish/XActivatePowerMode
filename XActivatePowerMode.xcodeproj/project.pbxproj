@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CBF768F81C0EC64F00E84CC1 /* blood.ped in Resources */ = {isa = PBXBuildFile; fileRef = CBF768F71C0EC64F00E84CC1 /* blood.ped */; };
 		E9112B861C0E34830074E49D /* Emitter.m in Sources */ = {isa = PBXBuildFile; fileRef = E9112B7B1C0E34830074E49D /* Emitter.m */; };
 		E9112B871C0E34830074E49D /* Rocker.m in Sources */ = {isa = PBXBuildFile; fileRef = E9112B7D1C0E34830074E49D /* Rocker.m */; };
 		E9112B881C0E34830074E49D /* default.ped in Resources */ = {isa = PBXBuildFile; fileRef = E9112B811C0E34830074E49D /* default.ped */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CBF768F71C0EC64F00E84CC1 /* blood.ped */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = blood.ped; sourceTree = "<group>"; };
 		E9112B7A1C0E34830074E49D /* Emitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Emitter.h; sourceTree = "<group>"; };
 		E9112B7B1C0E34830074E49D /* Emitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Emitter.m; sourceTree = "<group>"; };
 		E9112B7C1C0E34830074E49D /* Rocker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rocker.h; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 		E9112B801C0E34830074E49D /* effects */ = {
 			isa = PBXGroup;
 			children = (
+				CBF768F71C0EC64F00E84CC1 /* blood.ped */,
 				E9112B811C0E34830074E49D /* default.ped */,
 			);
 			path = effects;
@@ -194,6 +197,7 @@
 			files = (
 				E91D25BA1C0DD66A004B0A4C /* XActivatePowerMode.xcscheme in Resources */,
 				E9112B881C0E34830074E49D /* default.ped in Resources */,
+				CBF768F81C0EC64F00E84CC1 /* blood.ped in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
