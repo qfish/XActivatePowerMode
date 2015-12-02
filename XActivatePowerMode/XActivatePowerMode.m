@@ -95,10 +95,10 @@ static XActivatePowerMode * __sharedPlugin = nil;
 
 - (void)textDidChange:(NSNotification *)n
 {
-    if ( ![[NSApp keyWindow].firstResponder isKindOfClass:NSClassFromString(@"DVTSourceTextView")] )
+    if ( [n.object isKindOfClass:NSClassFromString(@"IDEConsoleTextView")])
         return;
 
-    if ( [n.object isKindOfClass:NSTextView.class] )
+    if ( [n.object isKindOfClass:NSClassFromString(@"DVTSourceTextView")] )
     {
         NSTextView * textView = (NSTextView *)n.object;
         
