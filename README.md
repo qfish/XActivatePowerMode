@@ -1,6 +1,6 @@
 # XActivatePowerMode
 
-An Xcode plug-in makes [activate-power-mode](https://github.com/JoelBesada/activate-power-mode) happen in your Xcode.
+An Xcode plug-in makes [POWER MODE](https://github.com/JoelBesada/activate-power-mode) happen in your Xcode.
 
 <!-- FOR FUN, BE HAPPY! Dont be too serious, Man~~ -->
 
@@ -68,7 +68,7 @@ The switch is under the menu <kbd>Edit</kbd> -> <kbd>Activate Power Mode</kbd>, 
 
 The default effect was builded with [UIEffectDesigner](http://www.touch-code-magazine.com/uieffectdesigner/). Make your own `ped` effect file, then add it to the project. The name of it will show in the <kbd>effects menu</kbd> list.
 
-Its appreciated that you **pull** a **request** with your **EFFECT**.
+Its appreciated that **pull** a **request** with your **EFFECT**.
 
 ## TODO
 
