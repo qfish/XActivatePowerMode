@@ -6,6 +6,7 @@
 //  Copyright © 2015 QFish. All rights reserved.
 //
 
+#define kXActivatePowerModeShouldRandomEffect @"qfi.sh.xcodeplugin.activatepowermode.shouldRandomEffect" //-zyn-12.03
 #import <Foundation/Foundation.h>
 #import <Cocoa/Cocoa.h>
 

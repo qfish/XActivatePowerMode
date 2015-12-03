@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		88853D5A1C0FD788001EEC8F /* fire.ped in Resources */ = {isa = PBXBuildFile; fileRef = 88853D591C0FD788001EEC8F /* fire.ped */; };
 		CBF768F81C0EC64F00E84CC1 /* blood.ped in Resources */ = {isa = PBXBuildFile; fileRef = CBF768F71C0EC64F00E84CC1 /* blood.ped */; };
 		E9112B861C0E34830074E49D /* Emitter.m in Sources */ = {isa = PBXBuildFile; fileRef = E9112B7B1C0E34830074E49D /* Emitter.m */; };
 		E9112B871C0E34830074E49D /* Rocker.m in Sources */ = {isa = PBXBuildFile; fileRef = E9112B7D1C0E34830074E49D /* Rocker.m */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		88853D591C0FD788001EEC8F /* fire.ped */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = fire.ped; sourceTree = "<group>"; };
 		CBF768F71C0EC64F00E84CC1 /* blood.ped */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = blood.ped; sourceTree = "<group>"; };
 		E9112B7A1C0E34830074E49D /* Emitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Emitter.h; sourceTree = "<group>"; };
 		E9112B7B1C0E34830074E49D /* Emitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Emitter.m; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 		E9112B801C0E34830074E49D /* effects */ = {
 			isa = PBXGroup;
 			children = (
+				88853D591C0FD788001EEC8F /* fire.ped */,
 				CBF768F71C0EC64F00E84CC1 /* blood.ped */,
 				E9112B811C0E34830074E49D /* default.ped */,
 			);
@@ -196,6 +199,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E91D25BA1C0DD66A004B0A4C /* XActivatePowerMode.xcscheme in Resources */,
+				88853D5A1C0FD788001EEC8F /* fire.ped in Resources */,
 				E9112B881C0E34830074E49D /* default.ped in Resources */,
 				CBF768F81C0EC64F00E84CC1 /* blood.ped in Resources */,
 			);

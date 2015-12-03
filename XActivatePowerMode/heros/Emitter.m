@@ -18,6 +18,7 @@
 @property (nonatomic, assign) float birthRate;
 @property (nonatomic, strong) NSTimer * timer;
 @property (nonatomic, strong) UIEffectDesignerView * effectView;
+@property (atomic, assign) int lastParity; // 避免一分钟内每次调用effectView都重新创建-zyn-12.03
 @end
 
 @implementation Emitter
@@ -116,9 +117,49 @@
                                                             ofType:[self.effectFile pathExtension]]];
         self.birthRate = _effectView.emitter.birthRate;
     }
-    
+    //---zyn-12.03-begin  randomEffect
+    else
+    {
+        BOOL isRandom = [[NSUserDefaults standardUserDefaults] boolForKey:kXActivatePowerModeShouldRandomEffect];
+        if (isRandom)
+        {
+            NSDate *date = [NSDate date];
+            NSDateFormatter *format = [[NSDateFormatter alloc] init];
+            [format setDateFormat:@"mm"];
+            NSString *dateStr = [format stringFromDate:date];
+            int curParity = dateStr.intValue%2;
+            if (curParity != self.lastParity)
+            {
+                [_effectView removeFromSuperview]; // 不移除效果也很炫
+//                NSArray *pedArray = @[@"default", @"blood", @"fire"];
+                NSArray *pedArray = [self getPedNameArray];
+                NSString *pedName = pedArray[arc4random_uniform((int)pedArray.count)];
+                _effectView = [UIEffectDesignerView effectWithFile:[[XActivatePowerMode sharedPlugin].bundle
+                                                                        pathForResource:pedName
+                                                                        ofType:nil]];
+                self.birthRate = _effectView.emitter.birthRate;
+                self.lastParity = curParity;
+            }
+        }
+    }
+    //---zyn-12.03-end
     return _effectView;
 }
+
+//---zyn-12.03-begin
+- (NSMutableArray *)getPedNameArray
+{
+    NSMutableArray *pedNameArray = [NSMutableArray array];
+    NSMenuItem * mainItem = [[NSApp mainMenu] itemWithTitle:@"Edit"];
+    NSMenuItem * ActivatePMItem = [mainItem.submenu.itemArray lastObject];
+    NSMenuItem * effectsItem = [ActivatePMItem.submenu.itemArray lastObject];
+    for (NSMenuItem *item in effectsItem.submenu.itemArray)
+    {
+        [pedNameArray addObject:item.title];
+    }
+    return pedNameArray;
+}
+//---zyn-12.03-end
 
 - (void)changeEffectFile:(NSString *)file
 {

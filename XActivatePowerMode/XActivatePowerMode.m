@@ -20,6 +20,7 @@ static XActivatePowerMode * __sharedPlugin = nil;
 
 @property (nonatomic, weak, readwrite) NSMenuItem * enabledMenuItem;
 @property (nonatomic, weak, readwrite) NSMenuItem * shakedMenuItem;
+@property (nonatomic, weak, readwrite) NSMenuItem * randomEffectItem; //-zyn-12.03
 @property (nonatomic, weak, readwrite) NSMenuItem * effectsMenuItem;
 
 @property (nonatomic, strong, readwrite) NSBundle * bundle;
@@ -29,6 +30,7 @@ static XActivatePowerMode * __sharedPlugin = nil;
 
 @property (nonatomic, assign) BOOL enabled;
 @property (nonatomic, assign) BOOL shouldShake;
+@property (nonatomic, assign) BOOL shouldRandomEffect;
 
 @end
 
@@ -36,6 +38,7 @@ static XActivatePowerMode * __sharedPlugin = nil;
 
 @synthesize enabled = _enabled;
 @synthesize shouldShake = _shouldShake;
+@synthesize shouldRandomEffect = _shouldRandomEffect;
 
 + (void)pluginDidLoad:(NSBundle *)plugin
 {
@@ -166,6 +169,22 @@ static XActivatePowerMode * __sharedPlugin = nil;
     [self updateMenuTitles];
 }
 
+//---zyn-12.03-begin
+- (void)setShouldRandomEffect:(BOOL)shouldRandomEffect
+{
+    if ( !self.enabled )
+        return;
+    
+    if ( _shouldRandomEffect == shouldRandomEffect )
+        return;
+    
+    _shouldRandomEffect = shouldRandomEffect;
+    
+    [self updateUserDefaultsWithShouldRandomEffect:shouldRandomEffect];
+    [self updateRandomEffectMenuTitles];
+}
+//---zyn-12.03-end
+
 - (void)updateUserDefaultsWithEnabled:(BOOL)enabled
 {
     [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:kXActivatePowerModeEnabled];
@@ -177,6 +196,14 @@ static XActivatePowerMode * __sharedPlugin = nil;
     [[NSUserDefaults standardUserDefaults] setBool:shaked forKey:kXActivatePowerModeShouldShake];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
+
+//---zyn-12.03-begin
+- (void)updateUserDefaultsWithShouldRandomEffect:(BOOL)shouldRandomEffect
+{
+    [[NSUserDefaults standardUserDefaults] setBool:shouldRandomEffect forKey:kXActivatePowerModeShouldRandomEffect];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+//---zyn-12.03-end
 
 - (void)loadConfig
 {
@@ -236,12 +263,21 @@ static XActivatePowerMode * __sharedPlugin = nil;
         [menu addItem:shakedMenuItem];
         self.shakedMenuItem = shakedMenuItem;
 
+        //---zyn-12.03-begin
+        NSMenuItem *randomEffectItem = [[NSMenuItem alloc] init];
+        randomEffectItem.title = @"randomEffect";
+        randomEffectItem.action = @selector(toggleRandomEffect:);
+        randomEffectItem.target = self;
+        [menu addItem:randomEffectItem];
+        self.randomEffectItem = randomEffectItem;
+        //---zyn-12.03-end
+        
 		NSMenuItem * effectsMenuItem = [[NSMenuItem alloc] init];
 		effectsMenuItem.title = @"Effects";
 		[menu addItem:effectsMenuItem];
 		self.effectsMenuItem = effectsMenuItem;
 		self.effectsMenuItem.submenu = [[NSMenu alloc] init];
-		
+        
 		NSArray * effectFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.bundle.resourcePath error:NULL];
 		
 		for ( NSString * file in effectFiles )
@@ -276,6 +312,13 @@ static XActivatePowerMode * __sharedPlugin = nil;
 {
     self.shouldShake = !self.shouldShake;
 }
+
+//---zyn-12.03-begin
+- (void)toggleRandomEffect:(id)sender
+{
+    self.shouldRandomEffect = !self.shouldRandomEffect;
+}
+//---zyn-12.03-end
 
 - (void)toggleEffect:(id)sender
 {
@@ -319,5 +362,23 @@ static XActivatePowerMode * __sharedPlugin = nil;
         self.shakedMenuItem.state = self.shouldShake;
     }
 }
+
+//---zyn-12.03-begin
+- (void)updateRandomEffectMenuTitles
+{
+    self.enabledMenuItem.state = self.enabled;
+    
+    if ( !self.enabled )
+    {
+        self.randomEffectItem.target = nil;
+        self.randomEffectItem.state = NSOffState;
+    }
+    else
+    {
+        self.randomEffectItem.target = self;
+        self.randomEffectItem.state = self.shouldRandomEffect;
+    }
+}
+//---zyn-12.03-end
 
 @end
