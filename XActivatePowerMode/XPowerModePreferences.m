@@ -66,7 +66,12 @@ NSString * const kXActivatePowerModeEnabled = @"qfi.sh.xcodeplugin.activatepower
         _enabled = [value boolValue];
     }
     
+    if ( self.delegate && [self.delegate respondsToSelector:@selector(didXPowerModePreferencesSetup:)] ) {
+        [self.delegate didXPowerModePreferencesSetup:self];
+    }
+
     [self setupMenu];
+    [self updateMenus];
 }
 
 #pragma mark - Menus

@@ -7,33 +7,30 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CBF768F81C0EC64F00E84CC1 /* blood.ped in Resources */ = {isa = PBXBuildFile; fileRef = CBF768F71C0EC64F00E84CC1 /* blood.ped */; };
-		E9112B861C0E34830074E49D /* Emitter.m in Sources */ = {isa = PBXBuildFile; fileRef = E9112B7B1C0E34830074E49D /* Emitter.m */; };
-		E9112B871C0E34830074E49D /* Rocker.m in Sources */ = {isa = PBXBuildFile; fileRef = E9112B7D1C0E34830074E49D /* Rocker.m */; };
-		E9112B881C0E34830074E49D /* default.ped in Resources */ = {isa = PBXBuildFile; fileRef = E9112B811C0E34830074E49D /* default.ped */; };
-		E9112B891C0E34830074E49D /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = E9112B831C0E34830074E49D /* NSData+Base64.m */; };
-		E9112B8A1C0E34830074E49D /* UIEffectDesignerView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9112B851C0E34830074E49D /* UIEffectDesignerView.m */; };
 		E91D25B41C0DD66A004B0A4C /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E91D25B31C0DD66A004B0A4C /* AppKit.framework */; };
 		E91D25B61C0DD66A004B0A4C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E91D25B51C0DD66A004B0A4C /* Foundation.framework */; };
 		E91D25BA1C0DD66A004B0A4C /* XActivatePowerMode.xcscheme in Resources */ = {isa = PBXBuildFile; fileRef = E91D25B91C0DD66A004B0A4C /* XActivatePowerMode.xcscheme */; };
 		E91D25BD1C0DD66A004B0A4C /* XActivatePowerMode.m in Sources */ = {isa = PBXBuildFile; fileRef = E91D25BC1C0DD66A004B0A4C /* XActivatePowerMode.m */; };
+		E9713EBD1C112FE10086BD89 /* Emitter.m in Sources */ = {isa = PBXBuildFile; fileRef = E9713EB11C112FE10086BD89 /* Emitter.m */; };
+		E9713EBE1C112FE10086BD89 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = E9713EB51C112FE10086BD89 /* NSData+Base64.m */; };
+		E9713EBF1C112FE10086BD89 /* UIEffectDesignerView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9713EB71C112FE10086BD89 /* UIEffectDesignerView.m */; };
+		E9713EC01C112FE10086BD89 /* Rocker.m in Sources */ = {isa = PBXBuildFile; fileRef = E9713EBA1C112FE10086BD89 /* Rocker.m */; };
+		E9A716F81C11316B00506435 /* keyboard1.wav in Resources */ = {isa = PBXBuildFile; fileRef = E9A716F21C11316B00506435 /* keyboard1.wav */; };
+		E9A716F91C11316B00506435 /* keyboard2.wav in Resources */ = {isa = PBXBuildFile; fileRef = E9A716F31C11316B00506435 /* keyboard2.wav */; };
+		E9A716FA1C11316B00506435 /* keyboard3.wav in Resources */ = {isa = PBXBuildFile; fileRef = E9A716F41C11316B00506435 /* keyboard3.wav */; };
+		E9A716FB1C11316B00506435 /* keyboard4.wav in Resources */ = {isa = PBXBuildFile; fileRef = E9A716F51C11316B00506435 /* keyboard4.wav */; };
+		E9A716FC1C11316B00506435 /* keyboard5.wav in Resources */ = {isa = PBXBuildFile; fileRef = E9A716F61C11316B00506435 /* keyboard5.wav */; };
+		E9A716FD1C11316B00506435 /* license.txt in Resources */ = {isa = PBXBuildFile; fileRef = E9A716F71C11316B00506435 /* license.txt */; };
 		E9B2621A1C109C27006AB76D /* XPowerModeCommander.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B262151C109C27006AB76D /* XPowerModeCommander.m */; };
 		E9B2621B1C109C27006AB76D /* XPowerModeCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B262171C109C27006AB76D /* XPowerModeCommand.m */; };
 		E9B2621F1C111587006AB76D /* XPowerModePreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B2621E1C111587006AB76D /* XPowerModePreferences.m */; };
 		E9B262221C111872006AB76D /* XPowerModeHero.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B262211C111872006AB76D /* XPowerModeHero.m */; };
+		E9BA826E1C11304E006E697D /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = E9BA826D1C11304E006E697D /* Player.m */; };
+		E9BA82731C1130AA006E697D /* blood.ped in Resources */ = {isa = PBXBuildFile; fileRef = E9BA82711C1130AA006E697D /* blood.ped */; };
+		E9BA82741C1130AA006E697D /* default.ped in Resources */ = {isa = PBXBuildFile; fileRef = E9BA82721C1130AA006E697D /* default.ped */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		CBF768F71C0EC64F00E84CC1 /* blood.ped */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = blood.ped; sourceTree = "<group>"; };
-		E9112B7A1C0E34830074E49D /* Emitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Emitter.h; sourceTree = "<group>"; };
-		E9112B7B1C0E34830074E49D /* Emitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Emitter.m; sourceTree = "<group>"; };
-		E9112B7C1C0E34830074E49D /* Rocker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rocker.h; sourceTree = "<group>"; };
-		E9112B7D1C0E34830074E49D /* Rocker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Rocker.m; sourceTree = "<group>"; };
-		E9112B811C0E34830074E49D /* default.ped */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = default.ped; sourceTree = "<group>"; };
-		E9112B821C0E34830074E49D /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
-		E9112B831C0E34830074E49D /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
-		E9112B841C0E34830074E49D /* UIEffectDesignerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIEffectDesignerView.h; sourceTree = "<group>"; };
-		E9112B851C0E34830074E49D /* UIEffectDesignerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIEffectDesignerView.m; sourceTree = "<group>"; };
 		E91D25B01C0DD66A004B0A4C /* XActivatePowerMode.xcplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XActivatePowerMode.xcplugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		E91D25B31C0DD66A004B0A4C /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		E91D25B51C0DD66A004B0A4C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
@@ -41,6 +38,20 @@
 		E91D25BB1C0DD66A004B0A4C /* XActivatePowerMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XActivatePowerMode.h; sourceTree = "<group>"; };
 		E91D25BC1C0DD66A004B0A4C /* XActivatePowerMode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XActivatePowerMode.m; sourceTree = "<group>"; };
 		E91D25C11C0DD66A004B0A4C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E9713EB01C112FE10086BD89 /* Emitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Emitter.h; sourceTree = "<group>"; };
+		E9713EB11C112FE10086BD89 /* Emitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Emitter.m; sourceTree = "<group>"; };
+		E9713EB41C112FE10086BD89 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		E9713EB51C112FE10086BD89 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
+		E9713EB61C112FE10086BD89 /* UIEffectDesignerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIEffectDesignerView.h; sourceTree = "<group>"; };
+		E9713EB71C112FE10086BD89 /* UIEffectDesignerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIEffectDesignerView.m; sourceTree = "<group>"; };
+		E9713EB91C112FE10086BD89 /* Rocker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rocker.h; sourceTree = "<group>"; };
+		E9713EBA1C112FE10086BD89 /* Rocker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Rocker.m; sourceTree = "<group>"; };
+		E9A716F21C11316B00506435 /* keyboard1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = keyboard1.wav; sourceTree = "<group>"; };
+		E9A716F31C11316B00506435 /* keyboard2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = keyboard2.wav; sourceTree = "<group>"; };
+		E9A716F41C11316B00506435 /* keyboard3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = keyboard3.wav; sourceTree = "<group>"; };
+		E9A716F51C11316B00506435 /* keyboard4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = keyboard4.wav; sourceTree = "<group>"; };
+		E9A716F61C11316B00506435 /* keyboard5.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = keyboard5.wav; sourceTree = "<group>"; };
+		E9A716F71C11316B00506435 /* license.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = license.txt; sourceTree = "<group>"; };
 		E9B262141C109C27006AB76D /* XPowerModeCommander.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPowerModeCommander.h; sourceTree = "<group>"; };
 		E9B262151C109C27006AB76D /* XPowerModeCommander.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPowerModeCommander.m; sourceTree = "<group>"; };
 		E9B262161C109C27006AB76D /* XPowerModeCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPowerModeCommand.h; sourceTree = "<group>"; };
@@ -49,6 +60,10 @@
 		E9B2621E1C111587006AB76D /* XPowerModePreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPowerModePreferences.m; sourceTree = "<group>"; };
 		E9B262201C111872006AB76D /* XPowerModeHero.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPowerModeHero.h; sourceTree = "<group>"; };
 		E9B262211C111872006AB76D /* XPowerModeHero.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPowerModeHero.m; sourceTree = "<group>"; };
+		E9BA826C1C11304E006E697D /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
+		E9BA826D1C11304E006E697D /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
+		E9BA82711C1130AA006E697D /* blood.ped */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = blood.ped; sourceTree = "<group>"; };
+		E9BA82721C1130AA006E697D /* default.ped */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = default.ped; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,47 +79,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		E9112B791C0E34830074E49D /* heros */ = {
-			isa = PBXGroup;
-			children = (
-				E9112B7A1C0E34830074E49D /* Emitter.h */,
-				E9112B7B1C0E34830074E49D /* Emitter.m */,
-				E9112B7C1C0E34830074E49D /* Rocker.h */,
-				E9112B7D1C0E34830074E49D /* Rocker.m */,
-				E9112B7E1C0E34830074E49D /* vendor */,
-			);
-			path = heros;
-			sourceTree = "<group>";
-		};
-		E9112B7E1C0E34830074E49D /* vendor */ = {
-			isa = PBXGroup;
-			children = (
-				E9112B7F1C0E34830074E49D /* UIEffectDesignerView */,
-			);
-			path = vendor;
-			sourceTree = "<group>";
-		};
-		E9112B7F1C0E34830074E49D /* UIEffectDesignerView */ = {
-			isa = PBXGroup;
-			children = (
-				E9112B801C0E34830074E49D /* effects */,
-				E9112B821C0E34830074E49D /* NSData+Base64.h */,
-				E9112B831C0E34830074E49D /* NSData+Base64.m */,
-				E9112B841C0E34830074E49D /* UIEffectDesignerView.h */,
-				E9112B851C0E34830074E49D /* UIEffectDesignerView.m */,
-			);
-			path = UIEffectDesignerView;
-			sourceTree = "<group>";
-		};
-		E9112B801C0E34830074E49D /* effects */ = {
-			isa = PBXGroup;
-			children = (
-				CBF768F71C0EC64F00E84CC1 /* blood.ped */,
-				E9112B811C0E34830074E49D /* default.ped */,
-			);
-			path = effects;
-			sourceTree = "<group>";
-		};
 		E91D25A71C0DD66A004B0A4C = {
 			isa = PBXGroup;
 			children = (
@@ -134,18 +108,17 @@
 		E91D25B71C0DD66A004B0A4C /* XActivatePowerMode */ = {
 			isa = PBXGroup;
 			children = (
-				E9112B791C0E34830074E49D /* heros */,
 				E91D25BB1C0DD66A004B0A4C /* XActivatePowerMode.h */,
 				E91D25BC1C0DD66A004B0A4C /* XActivatePowerMode.m */,
+				E9B262161C109C27006AB76D /* XPowerModeCommand.h */,
+				E9B262171C109C27006AB76D /* XPowerModeCommand.m */,
 				E9B262141C109C27006AB76D /* XPowerModeCommander.h */,
 				E9B262151C109C27006AB76D /* XPowerModeCommander.m */,
 				E9B2621D1C111587006AB76D /* XPowerModePreferences.h */,
 				E9B2621E1C111587006AB76D /* XPowerModePreferences.m */,
-				E9B262161C109C27006AB76D /* XPowerModeCommand.h */,
-				E9B262171C109C27006AB76D /* XPowerModeCommand.m */,
 				E9B262201C111872006AB76D /* XPowerModeHero.h */,
 				E9B262211C111872006AB76D /* XPowerModeHero.m */,
-				E91D25C11C0DD66A004B0A4C /* Info.plist */,
+				E9713EAB1C112FE10086BD89 /* XPowerModeHeros */,
 				E91D25B81C0DD66A004B0A4C /* Supporting Files */,
 			);
 			path = XActivatePowerMode;
@@ -154,9 +127,91 @@
 		E91D25B81C0DD66A004B0A4C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				E91D25C11C0DD66A004B0A4C /* Info.plist */,
 				E91D25B91C0DD66A004B0A4C /* XActivatePowerMode.xcscheme */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E9713EAB1C112FE10086BD89 /* XPowerModeHeros */ = {
+			isa = PBXGroup;
+			children = (
+				E9713EAC1C112FE10086BD89 /* Emitter */,
+				E9713EB81C112FE10086BD89 /* Player */,
+				E9713EB91C112FE10086BD89 /* Rocker.h */,
+				E9713EBA1C112FE10086BD89 /* Rocker.m */,
+			);
+			path = XPowerModeHeros;
+			sourceTree = "<group>";
+		};
+		E9713EAC1C112FE10086BD89 /* Emitter */ = {
+			isa = PBXGroup;
+			children = (
+				E9BA82701C1130AA006E697D /* assets */,
+				E9713EB01C112FE10086BD89 /* Emitter.h */,
+				E9713EB11C112FE10086BD89 /* Emitter.m */,
+				E9713EB21C112FE10086BD89 /* vendor */,
+			);
+			path = Emitter;
+			sourceTree = "<group>";
+		};
+		E9713EB21C112FE10086BD89 /* vendor */ = {
+			isa = PBXGroup;
+			children = (
+				E9713EB31C112FE10086BD89 /* UIEffectDesignerView */,
+			);
+			path = vendor;
+			sourceTree = "<group>";
+		};
+		E9713EB31C112FE10086BD89 /* UIEffectDesignerView */ = {
+			isa = PBXGroup;
+			children = (
+				E9713EB41C112FE10086BD89 /* NSData+Base64.h */,
+				E9713EB51C112FE10086BD89 /* NSData+Base64.m */,
+				E9713EB61C112FE10086BD89 /* UIEffectDesignerView.h */,
+				E9713EB71C112FE10086BD89 /* UIEffectDesignerView.m */,
+			);
+			path = UIEffectDesignerView;
+			sourceTree = "<group>";
+		};
+		E9713EB81C112FE10086BD89 /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				E9BA826F1C1130A2006E697D /* assets */,
+				E9BA826C1C11304E006E697D /* Player.h */,
+				E9BA826D1C11304E006E697D /* Player.m */,
+			);
+			path = Player;
+			sourceTree = "<group>";
+		};
+		E9A716F11C11316B00506435 /* mechanical */ = {
+			isa = PBXGroup;
+			children = (
+				E9A716F21C11316B00506435 /* keyboard1.wav */,
+				E9A716F31C11316B00506435 /* keyboard2.wav */,
+				E9A716F41C11316B00506435 /* keyboard3.wav */,
+				E9A716F51C11316B00506435 /* keyboard4.wav */,
+				E9A716F61C11316B00506435 /* keyboard5.wav */,
+				E9A716F71C11316B00506435 /* license.txt */,
+			);
+			path = mechanical;
+			sourceTree = "<group>";
+		};
+		E9BA826F1C1130A2006E697D /* assets */ = {
+			isa = PBXGroup;
+			children = (
+				E9A716F11C11316B00506435 /* mechanical */,
+			);
+			path = assets;
+			sourceTree = "<group>";
+		};
+		E9BA82701C1130AA006E697D /* assets */ = {
+			isa = PBXGroup;
+			children = (
+				E9BA82711C1130AA006E697D /* blood.ped */,
+				E9BA82721C1130AA006E697D /* default.ped */,
+			);
+			path = assets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -215,9 +270,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9BA82731C1130AA006E697D /* blood.ped in Resources */,
+				E9A716F91C11316B00506435 /* keyboard2.wav in Resources */,
 				E91D25BA1C0DD66A004B0A4C /* XActivatePowerMode.xcscheme in Resources */,
-				E9112B881C0E34830074E49D /* default.ped in Resources */,
-				CBF768F81C0EC64F00E84CC1 /* blood.ped in Resources */,
+				E9A716FD1C11316B00506435 /* license.txt in Resources */,
+				E9BA82741C1130AA006E697D /* default.ped in Resources */,
+				E9A716F81C11316B00506435 /* keyboard1.wav in Resources */,
+				E9A716FB1C11316B00506435 /* keyboard4.wav in Resources */,
+				E9A716FA1C11316B00506435 /* keyboard3.wav in Resources */,
+				E9A716FC1C11316B00506435 /* keyboard5.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -228,14 +289,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9713EBF1C112FE10086BD89 /* UIEffectDesignerView.m in Sources */,
+				E9713EBD1C112FE10086BD89 /* Emitter.m in Sources */,
 				E9B2621B1C109C27006AB76D /* XPowerModeCommand.m in Sources */,
 				E9B2621A1C109C27006AB76D /* XPowerModeCommander.m in Sources */,
-				E9112B861C0E34830074E49D /* Emitter.m in Sources */,
-				E9112B891C0E34830074E49D /* NSData+Base64.m in Sources */,
+				E9BA826E1C11304E006E697D /* Player.m in Sources */,
+				E9713EBE1C112FE10086BD89 /* NSData+Base64.m in Sources */,
 				E9B2621F1C111587006AB76D /* XPowerModePreferences.m in Sources */,
-				E9112B871C0E34830074E49D /* Rocker.m in Sources */,
 				E9B262221C111872006AB76D /* XPowerModeHero.m in Sources */,
-				E9112B8A1C0E34830074E49D /* UIEffectDesignerView.m in Sources */,
+				E9713EC01C112FE10086BD89 /* Rocker.m in Sources */,
 				E91D25BD1C0DD66A004B0A4C /* XActivatePowerMode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

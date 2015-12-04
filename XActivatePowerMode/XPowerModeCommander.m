@@ -10,11 +10,12 @@
 
 #import "Emitter.h"
 #import "Rocker.h"
-#import "XPowerModePreferences.h"
+#import "Player.h"
 
 @interface XPowerModeCommander () <XPowerModePreferencesDelegate>
-@property (nonatomic, strong) Rocker * rocker;
 @property (nonatomic, strong) Emitter * emitter;
+@property (nonatomic, strong) Player  * player;
+@property (nonatomic, strong) Rocker  * rocker;
 @property (nonatomic, strong) NSMutableArray * heros;
 @end
 
@@ -32,7 +33,7 @@
         self.heros = [NSMutableArray array];
         [self loadHeros];
         
-        self.preferences = [XPowerModePreferences new];
+        self.preferences = [XPowerModePreferences standardPrefreneces];
         self.preferences.delegate = self;
     }
     return self;
@@ -55,8 +56,10 @@
 - (void)loadHeros
 {
     // TODO: Move this out
-    [self.heros addObject:(self.emitter = [Emitter new])];
+    // The menu item sort as below
     [self.heros addObject:(self.rocker  = [Rocker new])];
+    [self.heros addObject:(self.emitter = [Emitter new])];
+//    [self.heros addObject:(self.player  = [Player new])];
 }
 
 #pragma mark - Notifications
@@ -119,6 +122,16 @@
 
 #pragma mark - XPowerModePreferencesDelegate
 
+- (void)didXPowerModePreferencesSetup:(XPowerModePreferences *)preferences
+{
+    [self.heros enumerateObjectsUsingBlock:^(id<XPowerModeHero> _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ( obj && [obj respondsToSelector:@selector(didXPowerModePreferencesSetup:)])
+        {
+            [obj didXPowerModePreferencesSetup:preferences];
+        }
+    }];
+}
+
 - (void)didXPowerModePreferencesUpdate:(XPowerModePreferences *)preferences
 {
     if ( preferences.enabled ) {
@@ -128,9 +141,9 @@
     }
     
     [self.heros enumerateObjectsUsingBlock:^(id<XPowerModeHero> _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ( obj && [obj respondsToSelector:@selector(didXPowerModeMenusSetup:)])
+        if ( obj && [obj respondsToSelector:@selector(didXPowerModePreferencesUpdate:)])
         {
-            [obj didXPowerModeMenusSetup:preferences];
+            [obj didXPowerModePreferencesUpdate:preferences];
         }
     }];
 }

@@ -11,10 +11,4 @@
 #import "XPowerModeHero.h"
 
 @interface Emitter : XPowerModeHero
-
-@property (nonatomic, strong) NSString * effectFile;
-
-- (void)emitAtPosition:(NSPoint)position onView:(NSView *)view;
-- (void)changeEffectFile:(NSString *)file;
-
 @end

@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <AppKit/AppKit.h>
 
+// TODO: Detect typing speed, getting a combo ...
+
 @interface XPowerModeCommand : NSObject
 
 @property (nonatomic, assign) NSTextView * source;

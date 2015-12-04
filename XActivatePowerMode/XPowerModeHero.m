@@ -16,9 +16,9 @@
     return [XActivatePowerMode sharedPlugin].bundle;
 }
 
-- (NSMenu *)mainMenu
+- (XPowerModePreferences *)preferences
 {
-    return [XPowerModePreferences standardPrefreneces].menu;
+    return [XPowerModePreferences standardPrefreneces];
 }
 
 @end

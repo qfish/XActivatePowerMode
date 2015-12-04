@@ -13,6 +13,7 @@
 
 @protocol XPowerModePreferencesDelegate <NSObject>
 @optional
+- (void)didXPowerModePreferencesSetup:(nonnull XPowerModePreferences *)preferences;
 - (void)didXPowerModePreferencesUpdate:(nonnull XPowerModePreferences *)preferences;
 - (void)didXPowerModeMenusSetup:(nonnull XPowerModePreferences *)preferences;
 - (void)didXPowerModeMenusUpdate:(nonnull XPowerModePreferences *)preferences;

@@ -7,10 +7,10 @@
 //
 
 #import "Emitter.h"
+
 #import <CoreGraphics/CoreGraphics.h>
 #import <QuartzCore/QuartzCore.h>
 
-#import "XActivatePowerMode.h"
 #import "UIEffectDesignerView.h"
 
 NSString * const kXActivatePowerModeEffectFile = @"qfi.sh.xcodeplugin.activatepowermode.effectFile";
@@ -18,30 +18,14 @@ NSString * const kXActivatePowerModeEffectFile = @"qfi.sh.xcodeplugin.activatepo
 @interface Emitter ()
 @property (atomic, assign) BOOL isEmitting;
 @property (nonatomic, assign) float birthRate;
-@property (nonatomic, strong) NSTimer * timer;
+@property (nonatomic, strong) NSString * effectFile;
 @property (nonatomic, strong) UIEffectDesignerView * effectView;
-@property (nonatomic, strong) NSMenuItem * effectsMenuItem;
+
+@property (nonatomic, strong) NSMenuItem * menuItem;
+//@property (nonatomic, strong) NSTimer * timer;
 @end
 
 @implementation Emitter
-
-- (id)init
-{
-	self = [super init];
-	if ( self )
-	{
-//        NSString * effectFile = [[NSUserDefaults standardUserDefaults] objectForKey:kXActivatePowerModeEffectFile];
-//        
-//        if ( nil == effectFile )
-//        {
-//            effectFile = @"blood.ped";
-//        }
-//        
-//        self.effectFile = effectFile;
-        
-	}
-	return self;
-}
 
 - (void)dealloc
 {
@@ -123,7 +107,7 @@ NSString * const kXActivatePowerModeEffectFile = @"qfi.sh.xcodeplugin.activatepo
     if ( !_effectView )
     {
         // Build your own effect with: http://www.touch-code-magazine.com/uieffectdesigner/
-        _effectView = [UIEffectDesignerView effectWithFile:[[XActivatePowerMode sharedPlugin].bundle
+        _effectView = [UIEffectDesignerView effectWithFile:[self.bundle
                                                             pathForResource:[self.effectFile stringByDeletingPathExtension]
                                                             ofType:[self.effectFile pathExtension]]];
         self.birthRate = _effectView.emitter.birthRate;
@@ -132,7 +116,7 @@ NSString * const kXActivatePowerModeEffectFile = @"qfi.sh.xcodeplugin.activatepo
     return _effectView;
 }
 
-- (void)changeEffectFile:(NSString *)file
+- (void)changeEffect:(NSString *)file
 {
 	if ( [self.effectFile isEqualToString:file] )
 		return;
@@ -143,7 +127,7 @@ NSString * const kXActivatePowerModeEffectFile = @"qfi.sh.xcodeplugin.activatepo
 
 		[_effectView removeFromSuperview];
 		
-		_effectView = [UIEffectDesignerView effectWithFile:[[XActivatePowerMode sharedPlugin].bundle
+		_effectView = [UIEffectDesignerView effectWithFile:[self.bundle
 															pathForResource:[file stringByDeletingPathExtension]
 															ofType:[file pathExtension]]];
 		
@@ -157,30 +141,40 @@ NSString * const kXActivatePowerModeEffectFile = @"qfi.sh.xcodeplugin.activatepo
     [self beat];
 }
 
+#pragma mark - XPowerModeHero
+
 - (void)onPowerModeCommand:(XPowerModeCommand *)command
 {
     [self emitAtPosition:command.position onView:command.source];
 }
 
-#pragma mark - Menus
+#pragma mark - XPowerModePreferencesDelegate
 
-- (void)didXPowerModePreferencesUpdate:(XPowerModePreferences *)preferences
+- (void)didXPowerModePreferencesSetup:(XPowerModePreferences *)preferences
 {
+    NSString * effectFile = [[NSUserDefaults standardUserDefaults] objectForKey:kXActivatePowerModeEffectFile];
     
+    if ( nil == effectFile )
+    {
+        effectFile = @"blood.ped";
+    }
+    
+    self.effectFile = effectFile;
 }
 
 - (void)didXPowerModeMenusSetup:(XPowerModePreferences *)preferences
 {
-    NSMenuItem * effectsMenuItem = [[NSMenuItem alloc] init];
-    effectsMenuItem.title = @"Effects";
-    [preferences.menu addItem:effectsMenuItem];
+    NSMenuItem * menuItem = [[NSMenuItem alloc] init];
+    menuItem.title = @"Effects";
+    [preferences.menu addItem:menuItem];
     
-    self.effectsMenuItem = effectsMenuItem;
-    self.effectsMenuItem.submenu = [[NSMenu alloc] init];
+    self.menuItem = menuItem;
+    self.menuItem.submenu = [[NSMenu alloc] init];
     
-    NSArray * effectFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.bundle.resourcePath error:NULL];
+    NSArray * files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.bundle.resourcePath
+                                                                          error:NULL];
     
-    for ( NSString * file in effectFiles )
+    for ( NSString * file in files )
     {
         if ( [file hasSuffix:@".ped"] )
         {
@@ -188,11 +182,11 @@ NSString * const kXActivatePowerModeEffectFile = @"qfi.sh.xcodeplugin.activatepo
             
             if ( [[NSFileManager defaultManager] fileExistsAtPath:effectFile] )
             {
-                NSMenuItem * effectSubMenuItem = [[NSMenuItem alloc] init];
-                effectSubMenuItem.title = file;
-                effectSubMenuItem.action = @selector(toggleEffect:);
-                effectSubMenuItem.target = self;
-                [[effectsMenuItem submenu] addItem:effectSubMenuItem];
+                NSMenuItem * submenuItem = [[NSMenuItem alloc] init];
+                submenuItem.title = file;
+                submenuItem.action = @selector(switchEffect:);
+                submenuItem.target = self;
+                [[menuItem submenu] addItem:submenuItem];
             }
         }
     }
@@ -203,11 +197,11 @@ NSString * const kXActivatePowerModeEffectFile = @"qfi.sh.xcodeplugin.activatepo
     [self updateMenus];
 }
 
-- (void)toggleEffect:(id)sender
+- (void)switchEffect:(id)sender
 {
     NSString * file = ((NSMenuItem *)sender).title;
     
-    [self changeEffectFile:file];
+    [self changeEffect:file];
     
     [self updateMenus];
     
@@ -217,7 +211,7 @@ NSString * const kXActivatePowerModeEffectFile = @"qfi.sh.xcodeplugin.activatepo
 
 - (void)updateMenus
 {
-    for ( NSMenuItem * item in self.effectsMenuItem.submenu.itemArray )
+    for ( NSMenuItem * item in self.menuItem.submenu.itemArray )
     {
         if ( [item.title isEqualToString:self.effectFile] )
         {

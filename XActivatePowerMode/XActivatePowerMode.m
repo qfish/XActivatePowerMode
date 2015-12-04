@@ -36,6 +36,7 @@ static XActivatePowerMode * __sharedPlugin = nil;
 {
     if (self = [super init])
     {
+        self.bundle = plugin;
         self.commander = [[XPowerModeCommander alloc] init];
         
         [[NSNotificationCenter defaultCenter] addObserver:self
