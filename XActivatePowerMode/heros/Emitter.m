@@ -120,8 +120,7 @@
     //---zyn-12.03-begin  randomEffect
     else
     {
-        BOOL isRandom = [[NSUserDefaults standardUserDefaults] boolForKey:kXActivatePowerModeShouldRandomEffect];
-        if (isRandom)
+        if ([self isRandom])
         {
             NSDate *date = [NSDate date];
             NSDateFormatter *format = [[NSDateFormatter alloc] init];
@@ -130,8 +129,7 @@
             int curParity = dateStr.intValue%2;
             if (curParity != self.lastParity)
             {
-                [_effectView removeFromSuperview]; // 不移除效果也很炫
-//                NSArray *pedArray = @[@"default", @"blood", @"fire"];
+                [_effectView removeFromSuperview];
                 NSArray *pedArray = [self getPedNameArray];
                 NSString *pedName = pedArray[arc4random_uniform((int)pedArray.count)];
                 _effectView = [UIEffectDesignerView effectWithFile:[[XActivatePowerMode sharedPlugin].bundle
@@ -147,6 +145,20 @@
 }
 
 //---zyn-12.03-begin
+- (BOOL)isRandom
+{
+    NSMenuItem * mainItem = [[NSApp mainMenu] itemWithTitle:@"Edit"];
+    NSMenuItem * ActivatePMItem = [mainItem.submenu.itemArray lastObject];
+    for (NSMenuItem *item in ActivatePMItem.submenu.itemArray)
+    {
+        if ([item.title isEqualToString:@"randomEffect"])
+        {
+            return item.state;
+        }
+    }
+    return NO;
+}
+
 - (NSMutableArray *)getPedNameArray
 {
     NSMutableArray *pedNameArray = [NSMutableArray array];

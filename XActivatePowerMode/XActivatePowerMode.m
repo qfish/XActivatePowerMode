@@ -13,6 +13,7 @@
 NSString * const kXActivatePowerModeEnabled = @"qfi.sh.xcodeplugin.activatepowermode.enabled";
 NSString * const kXActivatePowerModeShouldShake = @"qfi.sh.xcodeplugin.activatepowermode.shouldshake";
 NSString * const kXActivatePowerModeEffectFile = @"qfi.sh.xcodeplugin.activatepowermode.effectFile";
+NSString * const kXActivatePowerModeShouldRandomEffect = @"qfi.sh.xcodeplugin.activatepowermode.shouldRandomEffect"; //-zyn-12.04
 
 static XActivatePowerMode * __sharedPlugin = nil;
 
@@ -138,6 +139,7 @@ static XActivatePowerMode * __sharedPlugin = nil;
                                                         name:NSTextDidChangeNotification
                                                       object:nil];
         self.shouldShake = NO;
+        self.shouldRandomEffect = NO;
     }
 }
 
@@ -180,7 +182,7 @@ static XActivatePowerMode * __sharedPlugin = nil;
     
     _shouldRandomEffect = shouldRandomEffect;
     
-    [self updateUserDefaultsWithShouldRandomEffect:shouldRandomEffect];
+    [self updateUserDefaultsWithRandomEffect:shouldRandomEffect];
     [self updateRandomEffectMenuTitles];
 }
 //---zyn-12.03-end
@@ -198,9 +200,9 @@ static XActivatePowerMode * __sharedPlugin = nil;
 }
 
 //---zyn-12.03-begin
-- (void)updateUserDefaultsWithShouldRandomEffect:(BOOL)shouldRandomEffect
+- (void)updateUserDefaultsWithRandomEffect:(BOOL)randomEffect
 {
-    [[NSUserDefaults standardUserDefaults] setBool:shouldRandomEffect forKey:kXActivatePowerModeShouldRandomEffect];
+    [[NSUserDefaults standardUserDefaults] setBool:randomEffect forKey:kXActivatePowerModeShouldRandomEffect];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 //---zyn-12.03-end
@@ -223,13 +225,26 @@ static XActivatePowerMode * __sharedPlugin = nil;
     
     if ( value == nil )
     {
-        [self updateUserDefaultsWithEnabled:NO];
+        [self updateUserDefaultsWithShaked:NO];
         _shouldShake = NO;
     }
     else
     {
         _shouldShake = [value boolValue];
     }
+    
+    //---zyn-12.04-begin
+    value = [[NSUserDefaults standardUserDefaults] objectForKey:kXActivatePowerModeShouldRandomEffect];
+    if ( value == nil )
+    {
+        [self updateUserDefaultsWithRandomEffect:NO];
+        _shouldRandomEffect = NO;
+    }
+    else
+    {
+        _shouldRandomEffect = [value boolValue];
+    }
+    //---zyn-12.04-end
 }
 
 #pragma mark - Menus
