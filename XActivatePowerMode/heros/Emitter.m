@@ -13,11 +13,14 @@
 #import "XActivatePowerMode.h"
 #import "UIEffectDesignerView.h"
 
+NSString * const kXActivatePowerModeEffectFile = @"qfi.sh.xcodeplugin.activatepowermode.effectFile";
+
 @interface Emitter ()
 @property (atomic, assign) BOOL isEmitting;
 @property (nonatomic, assign) float birthRate;
 @property (nonatomic, strong) NSTimer * timer;
 @property (nonatomic, strong) UIEffectDesignerView * effectView;
+@property (nonatomic, strong) NSMenuItem * effectsMenuItem;
 @end
 
 @implementation Emitter
@@ -27,6 +30,15 @@
 	self = [super init];
 	if ( self )
 	{
+//        NSString * effectFile = [[NSUserDefaults standardUserDefaults] objectForKey:kXActivatePowerModeEffectFile];
+//        
+//        if ( nil == effectFile )
+//        {
+//            effectFile = @"blood.ped";
+//        }
+//        
+//        self.effectFile = effectFile;
+        
 	}
 	return self;
 }
@@ -141,6 +153,81 @@
 	}
 
 	self.effectFile = file;
+    
+    [self beat];
+}
+
+- (void)onPowerModeCommand:(XPowerModeCommand *)command
+{
+    [self emitAtPosition:command.position onView:command.source];
+}
+
+#pragma mark - Menus
+
+- (void)didXPowerModePreferencesUpdate:(XPowerModePreferences *)preferences
+{
+    
+}
+
+- (void)didXPowerModeMenusSetup:(XPowerModePreferences *)preferences
+{
+    NSMenuItem * effectsMenuItem = [[NSMenuItem alloc] init];
+    effectsMenuItem.title = @"Effects";
+    [preferences.menu addItem:effectsMenuItem];
+    
+    self.effectsMenuItem = effectsMenuItem;
+    self.effectsMenuItem.submenu = [[NSMenu alloc] init];
+    
+    NSArray * effectFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.bundle.resourcePath error:NULL];
+    
+    for ( NSString * file in effectFiles )
+    {
+        if ( [file hasSuffix:@".ped"] )
+        {
+            NSString * effectFile = [self.bundle.resourcePath stringByAppendingFormat:@"/%@", file];
+            
+            if ( [[NSFileManager defaultManager] fileExistsAtPath:effectFile] )
+            {
+                NSMenuItem * effectSubMenuItem = [[NSMenuItem alloc] init];
+                effectSubMenuItem.title = file;
+                effectSubMenuItem.action = @selector(toggleEffect:);
+                effectSubMenuItem.target = self;
+                [[effectsMenuItem submenu] addItem:effectSubMenuItem];
+            }
+        }
+    }
+}
+
+- (void)didXPowerModeMenusUpdate:(XPowerModePreferences *)preferences
+{
+    [self updateMenus];
+}
+
+- (void)toggleEffect:(id)sender
+{
+    NSString * file = ((NSMenuItem *)sender).title;
+    
+    [self changeEffectFile:file];
+    
+    [self updateMenus];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:file forKey:kXActivatePowerModeEffectFile];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)updateMenus
+{
+    for ( NSMenuItem * item in self.effectsMenuItem.submenu.itemArray )
+    {
+        if ( [item.title isEqualToString:self.effectFile] )
+        {
+            item.state = NSOnState;
+        }
+        else
+        {
+            item.state = NSOffState;
+        }
+    }
 }
 
 @end

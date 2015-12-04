@@ -8,9 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <Cocoa/Cocoa.h>
+#import "XPowerModeHero.h"
 
-@interface Rocker : NSObject
-
-- (void)roll:(NSView *)view;
-
+@interface Rocker : XPowerModeHero
 @end

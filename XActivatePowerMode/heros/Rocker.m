@@ -8,7 +8,11 @@
 
 #import "Rocker.h"
 
+NSString * const kXActivatePowerModeShouldShake = @"qfi.sh.xcodeplugin.activatepowermode.shouldshake";
+
 @interface Rocker ()
+@property (nonatomic, assign) BOOL shouldShake;
+@property (nonatomic, strong) NSMenuItem * shakedMenuItem;
 @end
 
 @implementation Rocker
@@ -45,6 +49,83 @@
 - (void)calmdown:(NSView *)view
 {
     [self roll:view withStep:CGPointZero];
+}
+
+#pragma mark - Be a XPowerModeHero
+
+- (void)xpm_didTextChange:(NSTextView *)textView
+{
+    if ( self.shouldShake )
+    {
+        [self roll:textView];
+    }
+}
+
+- (void)setupMenus
+{
+    NSMenuItem * shakedMenuItem = [[NSMenuItem alloc] init];
+    shakedMenuItem.title = @"Shake😂?";
+    shakedMenuItem.action = @selector(toggleShaked:);
+    shakedMenuItem.target = self;
+    [self.mainMenu addItem:shakedMenuItem];
+    self.shakedMenuItem = shakedMenuItem;
+}
+
+#pragma mark -
+
+- (void)load
+{
+    NSNumber * value = [[NSUserDefaults standardUserDefaults] objectForKey:kXActivatePowerModeShouldShake];
+    
+    if ( value == nil )
+    {
+//        [self updateUserDefaultsWithEnabled:NO];
+        _shouldShake = NO;
+    }
+    else
+    {
+        _shouldShake = [value boolValue];
+    }
+}
+
+- (void)updateMenu
+{
+    if ( !self.preferences.enabled )
+    {
+        self.shakedMenuItem.target = nil;
+        self.shakedMenuItem.state = NSOffState;
+    }
+    else
+    {
+        self.shakedMenuItem.target = self;
+        self.shakedMenuItem.state = self.shouldShake;
+    }
+}
+
+- (void)toggleShaked:(id)sender
+{
+    self.shouldShake = !self.shouldShake;
+}
+
+- (void)updateUserDefaultsWithShaked:(BOOL)shaked
+{
+    [[NSUserDefaults standardUserDefaults] setBool:shaked forKey:kXActivatePowerModeShouldShake];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)setShouldShake:(BOOL)shouldShake
+{
+    if ( !self.preferences.enabled )
+        return;
+    
+    if ( _shouldShake == shouldShake )
+        return;
+    
+    _shouldShake = shouldShake;
+    
+//    [self updateUserDefaultsWithShaked:shouldShake];
+    self.preferences[@"shouldShake"] = @(shouldShake);
+//    [self updateMenuTitles];
 }
 
 @end

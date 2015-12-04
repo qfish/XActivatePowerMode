@@ -17,6 +17,10 @@
 		E91D25B61C0DD66A004B0A4C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E91D25B51C0DD66A004B0A4C /* Foundation.framework */; };
 		E91D25BA1C0DD66A004B0A4C /* XActivatePowerMode.xcscheme in Resources */ = {isa = PBXBuildFile; fileRef = E91D25B91C0DD66A004B0A4C /* XActivatePowerMode.xcscheme */; };
 		E91D25BD1C0DD66A004B0A4C /* XActivatePowerMode.m in Sources */ = {isa = PBXBuildFile; fileRef = E91D25BC1C0DD66A004B0A4C /* XActivatePowerMode.m */; };
+		E9B2621A1C109C27006AB76D /* XPowerModeCommander.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B262151C109C27006AB76D /* XPowerModeCommander.m */; };
+		E9B2621B1C109C27006AB76D /* XPowerModeCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B262171C109C27006AB76D /* XPowerModeCommand.m */; };
+		E9B2621F1C111587006AB76D /* XPowerModePreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B2621E1C111587006AB76D /* XPowerModePreferences.m */; };
+		E9B262221C111872006AB76D /* XPowerModeHero.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B262211C111872006AB76D /* XPowerModeHero.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +41,14 @@
 		E91D25BB1C0DD66A004B0A4C /* XActivatePowerMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XActivatePowerMode.h; sourceTree = "<group>"; };
 		E91D25BC1C0DD66A004B0A4C /* XActivatePowerMode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XActivatePowerMode.m; sourceTree = "<group>"; };
 		E91D25C11C0DD66A004B0A4C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E9B262141C109C27006AB76D /* XPowerModeCommander.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPowerModeCommander.h; sourceTree = "<group>"; };
+		E9B262151C109C27006AB76D /* XPowerModeCommander.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPowerModeCommander.m; sourceTree = "<group>"; };
+		E9B262161C109C27006AB76D /* XPowerModeCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPowerModeCommand.h; sourceTree = "<group>"; };
+		E9B262171C109C27006AB76D /* XPowerModeCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPowerModeCommand.m; sourceTree = "<group>"; };
+		E9B2621D1C111587006AB76D /* XPowerModePreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPowerModePreferences.h; sourceTree = "<group>"; };
+		E9B2621E1C111587006AB76D /* XPowerModePreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPowerModePreferences.m; sourceTree = "<group>"; };
+		E9B262201C111872006AB76D /* XPowerModeHero.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPowerModeHero.h; sourceTree = "<group>"; };
+		E9B262211C111872006AB76D /* XPowerModeHero.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPowerModeHero.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +137,14 @@
 				E9112B791C0E34830074E49D /* heros */,
 				E91D25BB1C0DD66A004B0A4C /* XActivatePowerMode.h */,
 				E91D25BC1C0DD66A004B0A4C /* XActivatePowerMode.m */,
+				E9B262141C109C27006AB76D /* XPowerModeCommander.h */,
+				E9B262151C109C27006AB76D /* XPowerModeCommander.m */,
+				E9B2621D1C111587006AB76D /* XPowerModePreferences.h */,
+				E9B2621E1C111587006AB76D /* XPowerModePreferences.m */,
+				E9B262161C109C27006AB76D /* XPowerModeCommand.h */,
+				E9B262171C109C27006AB76D /* XPowerModeCommand.m */,
+				E9B262201C111872006AB76D /* XPowerModeHero.h */,
+				E9B262211C111872006AB76D /* XPowerModeHero.m */,
 				E91D25C11C0DD66A004B0A4C /* Info.plist */,
 				E91D25B81C0DD66A004B0A4C /* Supporting Files */,
 			);
@@ -208,9 +228,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9B2621B1C109C27006AB76D /* XPowerModeCommand.m in Sources */,
+				E9B2621A1C109C27006AB76D /* XPowerModeCommander.m in Sources */,
 				E9112B861C0E34830074E49D /* Emitter.m in Sources */,
 				E9112B891C0E34830074E49D /* NSData+Base64.m in Sources */,
+				E9B2621F1C111587006AB76D /* XPowerModePreferences.m in Sources */,
 				E9112B871C0E34830074E49D /* Rocker.m in Sources */,
+				E9B262221C111872006AB76D /* XPowerModeHero.m in Sources */,
 				E9112B8A1C0E34830074E49D /* UIEffectDesignerView.m in Sources */,
 				E91D25BD1C0DD66A004B0A4C /* XActivatePowerMode.m in Sources */,
 			);

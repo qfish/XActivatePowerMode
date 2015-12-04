@@ -8,8 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import <Cocoa/Cocoa.h>
+#import "XPowerModeHero.h"
 
-@interface Emitter : NSObject
+@interface Emitter : XPowerModeHero
 
 @property (nonatomic, strong) NSString * effectFile;
 
