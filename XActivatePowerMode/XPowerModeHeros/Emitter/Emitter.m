@@ -14,6 +14,7 @@
 #import "UIEffectDesignerView.h"
 
 NSString * const kXActivatePowerModeEffectFile = @"qfi.sh.xcodeplugin.activatepowermode.effectFile";
+NSString * const kXActivatePowerModeShouldRandomEffect = @"qfi.sh.xcodeplugin.activatepowermode.shouldRandomEffect"; //-zyn-12.08
 
 @interface Emitter ()
 @property (atomic, assign) BOOL isEmitting;
@@ -23,13 +24,16 @@ NSString * const kXActivatePowerModeEffectFile = @"qfi.sh.xcodeplugin.activatepo
 
 @property (nonatomic, strong) NSMenuItem * menuItem;
 //@property (nonatomic, strong) NSTimer * timer;
+@property (nonatomic, strong) NSMutableArray *pedNameArray; //---zyn-12.08
+@property (atomic, assign) int lastParity; // 避免一分钟内每次调用effectView都重新创建-zyn-12.08
+@property (atomic, assign) BOOL isRandom;
 @end
 
 @implementation Emitter
 
 - (void)dealloc
 {
-	self.effectFile = nil;
+    self.effectFile = nil;
 }
 
 - (void)emitAtPosition:(NSPoint)position onView:(NSView *)aView
@@ -37,7 +41,7 @@ NSString * const kXActivatePowerModeEffectFile = @"qfi.sh.xcodeplugin.activatepo
     [self beat];
     
     NSView * view = aView.superview;
-
+    
     if ( !self.isEmitting )
     {
         [self startAtPosition:position onView:view];
@@ -59,14 +63,14 @@ NSString * const kXActivatePowerModeEffectFile = @"qfi.sh.xcodeplugin.activatepo
             [view addSubview:self.effectView];
         }
         
-//        [self.timer invalidate];
-//        self.timer = [NSTimer timerWithTimeInterval:0.1
-//                                             target:self
-//                                           selector:@selector(remix)
-//                                           userInfo:nil
-//                                            repeats:YES];
-//        
-//        [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
+        //        [self.timer invalidate];
+        //        self.timer = [NSTimer timerWithTimeInterval:0.1
+        //                                             target:self
+        //                                           selector:@selector(remix)
+        //                                           userInfo:nil
+        //                                            repeats:YES];
+        //
+        //        [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
         
     }
 }
@@ -90,7 +94,7 @@ NSString * const kXActivatePowerModeEffectFile = @"qfi.sh.xcodeplugin.activatepo
     if ( _effectView ) {
         self.effectView.emitter.birthRate = 0;
         self.isEmitting = NO;
-//        [self.timer invalidate];
+        //        [self.timer invalidate];
     }
 }
 
@@ -104,6 +108,38 @@ NSString * const kXActivatePowerModeEffectFile = @"qfi.sh.xcodeplugin.activatepo
 
 - (UIEffectDesignerView *)effectView
 {
+    //---zyn-12.08-begin
+    if (self.isRandom)
+    {
+        NSDate *date = [NSDate date];
+        NSDateFormatter *format = [[NSDateFormatter alloc] init];
+        [format setDateFormat:@"mm"];
+        NSString *dateStr = [format stringFromDate:date];
+        int curParity = dateStr.intValue%2;
+        if (curParity != self.lastParity)
+        {
+            if (_effectView)
+            {
+                [_effectView removeFromSuperview];
+            }
+            NSString *pedName = self.pedNameArray[arc4random_uniform((int)(self.pedNameArray.count - 1))];
+            _effectView = [UIEffectDesignerView effectWithFile:[self.bundle
+                                                                pathForResource:pedName
+                                                                ofType:nil]];
+            self.birthRate = _effectView.emitter.birthRate;
+            self.lastParity = curParity;
+        }
+        else if (!_effectView)
+        {
+            NSString *pedName = self.pedNameArray[arc4random_uniform((int)(self.pedNameArray.count - 1))];
+            _effectView = [UIEffectDesignerView effectWithFile:[self.bundle
+                                                                pathForResource:pedName
+                                                                ofType:nil]];
+            self.birthRate = _effectView.emitter.birthRate;
+        }
+    }
+    //---zyn-12.08-end
+    
     if ( !_effectView )
     {
         // Build your own effect with: http://www.touch-code-magazine.com/uieffectdesigner/
@@ -112,31 +148,30 @@ NSString * const kXActivatePowerModeEffectFile = @"qfi.sh.xcodeplugin.activatepo
                                                             ofType:[self.effectFile pathExtension]]];
         self.birthRate = _effectView.emitter.birthRate;
     }
-    
     return _effectView;
 }
 
 - (void)changeEffect:(NSString *)file
 {
-	if ( [self.effectFile isEqualToString:file] )
-		return;
-	
-	if ( _effectView )
-	{
-		NSView * containerView = _effectView.superview;
-
-		[_effectView removeFromSuperview];
-		
-		_effectView = [UIEffectDesignerView effectWithFile:[self.bundle
-															pathForResource:[file stringByDeletingPathExtension]
-															ofType:[file pathExtension]]];
-		
-		[containerView addSubview:_effectView];
-
-		self.birthRate = _effectView.emitter.birthRate;
-	}
-
-	self.effectFile = file;
+    if ( [self.effectFile isEqualToString:file] )
+        return;
+    
+    if ( _effectView )
+    {
+        NSView * containerView = _effectView.superview;
+        
+        [_effectView removeFromSuperview];
+        
+        _effectView = [UIEffectDesignerView effectWithFile:[self.bundle
+                                                            pathForResource:[file stringByDeletingPathExtension]
+                                                            ofType:[file pathExtension]]];
+        
+        [containerView addSubview:_effectView];
+        
+        self.birthRate = _effectView.emitter.birthRate;
+    }
+    
+    self.effectFile = file;
     
     [self beat];
 }
@@ -156,7 +191,15 @@ NSString * const kXActivatePowerModeEffectFile = @"qfi.sh.xcodeplugin.activatepo
     
     if ( nil == effectFile )
     {
-        effectFile = @"blood.ped";
+        //---zyn-12.08-begin
+        effectFile = [[NSUserDefaults standardUserDefaults] objectForKey:kXActivatePowerModeShouldRandomEffect];
+        self.isRandom = YES;
+        if (nil == effectFile)
+        {
+            effectFile = @"blood.ped";
+            self.isRandom = NO;
+        }
+        //---zyn-12.08-end
     }
     
     self.effectFile = effectFile;
@@ -184,12 +227,21 @@ NSString * const kXActivatePowerModeEffectFile = @"qfi.sh.xcodeplugin.activatepo
             {
                 NSMenuItem * submenuItem = [[NSMenuItem alloc] init];
                 submenuItem.title = file;
+                [self.pedNameArray addObject:file]; //---zyn-12.08
                 submenuItem.action = @selector(switchEffect:);
                 submenuItem.target = self;
                 [[menuItem submenu] addItem:submenuItem];
             }
         }
     }
+    
+    //---zyn-12.08-begin
+    NSMenuItem * submenuItem = [[NSMenuItem alloc] init];
+    submenuItem.title = @"RandomEmitter";
+    submenuItem.action = @selector(switchEffect:);
+    submenuItem.target = self;
+    [[menuItem submenu] addItem:submenuItem];
+    //---zyn-12.08-end
 }
 
 - (void)didXPowerModeMenusUpdate:(XPowerModePreferences *)preferences
@@ -201,13 +253,40 @@ NSString * const kXActivatePowerModeEffectFile = @"qfi.sh.xcodeplugin.activatepo
 {
     NSString * file = ((NSMenuItem *)sender).title;
     
+    //---zyn-12.08-begin
+    if([file isEqualToString:@"RandomEmitter"])
+    {
+        [self switchRandomEmitterEffectWithTitle:@"RandomEmitter"];
+        return;
+    }
+    self.isRandom = NO;
+    //---zyn-12.08-end
+    
     [self changeEffect:file];
     
     [self updateMenus];
     
+    self.isRandom = NO; //---zyn-12.08
+    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:kXActivatePowerModeShouldRandomEffect]; //---zyn-12.08
     [[NSUserDefaults standardUserDefaults] setObject:file forKey:kXActivatePowerModeEffectFile];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
+
+//---zyn-12.08-begin
+- (void)switchRandomEmitterEffectWithTitle:(NSString *)title
+{
+    if ([self.effectFile isEqualToString:title])
+    {
+        return;
+    }
+    self.effectFile = title;
+    [self updateMenus];
+    self.isRandom = YES;
+    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:kXActivatePowerModeEffectFile];
+    [[NSUserDefaults standardUserDefaults] setObject:title forKey:kXActivatePowerModeShouldRandomEffect];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+//---zyn-12.08-end
 
 - (void)updateMenus
 {
@@ -224,4 +303,12 @@ NSString * const kXActivatePowerModeEffectFile = @"qfi.sh.xcodeplugin.activatepo
     }
 }
 
+- (NSMutableArray *)pedNameArray
+{
+    if (_pedNameArray == nil)
+    {
+        _pedNameArray = [NSMutableArray array];
+    }
+    return _pedNameArray;
+}
 @end
