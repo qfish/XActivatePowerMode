@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8850C21E1C17CD7A00289797 /* fire.ped in Resources */ = {isa = PBXBuildFile; fileRef = 8850C21D1C17CD7A00289797 /* fire.ped */; };
 		E91D25B41C0DD66A004B0A4C /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E91D25B31C0DD66A004B0A4C /* AppKit.framework */; };
 		E91D25B61C0DD66A004B0A4C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E91D25B51C0DD66A004B0A4C /* Foundation.framework */; };
 		E91D25BA1C0DD66A004B0A4C /* XActivatePowerMode.xcscheme in Resources */ = {isa = PBXBuildFile; fileRef = E91D25B91C0DD66A004B0A4C /* XActivatePowerMode.xcscheme */; };
@@ -31,6 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8850C21D1C17CD7A00289797 /* fire.ped */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = fire.ped; sourceTree = "<group>"; };
 		E91D25B01C0DD66A004B0A4C /* XActivatePowerMode.xcplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XActivatePowerMode.xcplugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		E91D25B31C0DD66A004B0A4C /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		E91D25B51C0DD66A004B0A4C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
@@ -208,6 +210,7 @@
 		E9BA82701C1130AA006E697D /* assets */ = {
 			isa = PBXGroup;
 			children = (
+				8850C21D1C17CD7A00289797 /* fire.ped */,
 				E9BA82711C1130AA006E697D /* blood.ped */,
 				E9BA82721C1130AA006E697D /* default.ped */,
 			);
@@ -279,6 +282,7 @@
 				E9A716FB1C11316B00506435 /* keyboard4.wav in Resources */,
 				E9A716FA1C11316B00506435 /* keyboard3.wav in Resources */,
 				E9A716FC1C11316B00506435 /* keyboard5.wav in Resources */,
+				8850C21E1C17CD7A00289797 /* fire.ped in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
