@@ -13,8 +13,12 @@
 + (instancetype)commandWithSource:(id)source position:(CGPoint)position
 {
     XPowerModeCommand * command = [XPowerModeCommand new];
-    command.source = source;
+    
     command.position = position;
+    
+   
+    command.source = source;
+    
     return command;
 }
 

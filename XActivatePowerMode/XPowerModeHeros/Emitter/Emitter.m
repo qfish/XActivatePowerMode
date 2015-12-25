@@ -38,6 +38,12 @@ NSString * const kXActivatePowerModeEffectFile = @"qfi.sh.xcodeplugin.activatepo
     
     NSView * view = aView.superview;
 
+    // Fixes the crash problem with the Xcode custom code library
+    if ([view isKindOfClass:NSClassFromString(@"DVTControllerContentView")]) {
+        NSWindow *tmpWindow = (NSWindow *)view;
+        view = tmpWindow.contentView;
+    }
+
     if ( !self.isEmitting )
     {
         [self startAtPosition:position onView:view];
