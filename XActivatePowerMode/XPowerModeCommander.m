@@ -83,10 +83,14 @@
         XPowerModeCommand * command = [XPowerModeCommand commandWithSource:textView position:targetRect.origin];
         
         [self.heros enumerateObjectsUsingBlock:^(id<XPowerModeHero> _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            
             if ( obj && [obj respondsToSelector:@selector(onPowerModeCommand:)])
             {
+                
                 [obj onPowerModeCommand:command];
+                
             }
+            
         }];
     }
 }
