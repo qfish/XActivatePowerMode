@@ -4,7 +4,7 @@ An Xcode plug-in makes [POWER MODE](https://github.com/JoelBesada/activate-power
 
 <!-- FOR FUN, BE HAPPY! Dont be too serious, Man~~ -->
 
-<img src="http://7d9o0x.com1.z0.glb.clouddn.com/XActivatePowerMode/behappy.png" width="300"/>
+<img width="300" alt="behappy" src="https://user-images.githubusercontent.com/679824/27995983-b434bc84-650a-11e7-99d2-26319bf284e8.png">
 
 **NOTE THAT THIS VERSION IS VERY BUGGY RIGHT NOW**
 
@@ -34,7 +34,7 @@ An Xcode plug-in makes [POWER MODE](https://github.com/JoelBesada/activate-power
 
 * Default
 
-    <img src="http://7d9o0x.com1.z0.glb.clouddn.com/XActivatePowerModepreview.gif" width="500"/>
+    <img width="500" alt="preview" src="https://user-images.githubusercontent.com/679824/27995994-d38bdc84-650a-11e7-87fa-ed0ec104ffea.gif">
 
 * Bloody (Thanks to @gavinkwoe)
 
@@ -61,7 +61,7 @@ Clone the repo, then build (<kbd>cmd + b</kbd>) the `XActivatePowerMode` target 
 
 The switch is under the menu <kbd>Edit</kbd> -> <kbd>Activate Power Mode</kbd>, just click that or **uninstall this plug-in** :] .
 
-<img src="http://7d9o0x.com1.z0.glb.clouddn.com/XActivatePowerMode/tips.png" width="500"/>
+<img width="320" alt="deactivate-tips" src="https://user-images.githubusercontent.com/679824/27996010-1c1b45a2-650b-11e7-87e5-971aa48495da.png">
 
 
 ## Make your own particle effect?
@@ -82,6 +82,6 @@ XActivatePowerMode is published under MIT License. See the LICENSE file for more
 
 ## Special thanks to
 
-* [![Geek-Zoo](http://geek-zoo.com/img/images/logo_2.png)](http://www.geek-zoo.com)
+* [Geek-Zoo](http://www.geek-zoo.com)
 
   They provide awesome design and development works continues to help the open-source community even better.
